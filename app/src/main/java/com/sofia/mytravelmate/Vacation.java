@@ -2,12 +2,15 @@ package com.sofia.mytravelmate;
 
 import androidx.annotation.NonNull;
 
+
 public class Vacation {
     private int id;
     private String vacationName;
     private String location;
     private int price;
     private int imageUrl;
+
+    public Vacation() {}
 
     public Vacation(int id, String vacationName, String location, int price , int imageUrl) {
         this.id = id;
@@ -53,6 +56,7 @@ public class Vacation {
     public int getImageUrl() {
         return imageUrl;
     }
+
 
     public void setImageUrl(int imageUrl) {
         this.imageUrl = imageUrl;
