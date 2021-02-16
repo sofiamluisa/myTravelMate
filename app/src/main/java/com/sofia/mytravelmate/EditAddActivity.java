@@ -3,6 +3,7 @@ package com.sofia.mytravelmate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.res.TypedArray;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,10 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.sofia.mytravelmate.ui.home.HomeFragment;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class EditAddActivity extends AppCompatActivity {
     private int year;
@@ -59,34 +65,19 @@ public class EditAddActivity extends AppCompatActivity {
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
 
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(TextUtils.isEmpty(editTextVacationName.getText()) || TextUtils.isEmpty(editTextLocation.getText())) {
-//                    for (Map.Entry<String, EditText> entry : editTextHashs.entrySet()) {
-//                        if(TextUtils.isEmpty(entry.getValue().getText())) {
-//                            entry.getValue().requestFocus();
-//                        }
-//                    }
-//                } else {
-//
-//                    vacation.setVacationName(editTextVacationName.getText().toString());
-//                    vacation.setLocation(editTextLocation.getText().toString());
-//                    editTextVacationName.getText().clear();
-//                    editTextLocation.getText().clear();
-//                    editTextVacationName.requestFocus();
-//                    finish();
-//                }
-//            }
-//        });
-
 
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                List<Vacation> vacationList = new ArrayList<>();
-                if(TextUtils.isEmpty(editTextVacationName.getText())||TextUtils.isEmpty(editTextLocation.getText())){
-                    vacationList.add(new Vacation(10, editTextVacationName.getText().toString(), editTextLocation.getText().toString(), Integer.valueOf(textViewSeekBar.getText().toString()), R.drawable.vacationimage));
+                if(!TextUtils.isEmpty(editTextVacationName.getText())&& !TextUtils.isEmpty(editTextLocation.getText())){
+                    final TypedArray imgs = getResources().obtainTypedArray(R.array.arrayImages);
+                    final Random rand = new Random();
+                    final int rndInt = rand.nextInt(imgs.length());
+                    final int resID = imgs.getResourceId(rndInt, 0);
+                    VacationDatabase appDB = VacationDatabase.getInstance(getApplicationContext());
+                    Executor executor = Executors.newSingleThreadExecutor();
+                    executor.execute(() -> appDB.vacationDao().insertVacation(new Vacation(editTextVacationName.getText().toString(), editTextLocation.getText().toString(), Integer.parseInt(textViewSeekBar.getText().toString()), resID)));
+
                 } finish();
             }
         });
@@ -102,7 +93,7 @@ public class EditAddActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressBar.setProgress(progress);
-                textViewSeekBar.setText(" " + progress);
+                textViewSeekBar.setText(String.valueOf(progress));
             }
 
             @Override

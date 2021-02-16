@@ -1,9 +1,13 @@
 package com.sofia.mytravelmate;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
-
+@Entity(tableName = "vacation")
 public class Vacation {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String vacationName;
     private String location;
@@ -14,6 +18,15 @@ public class Vacation {
 
     public Vacation(int id, String vacationName, String location, int price , int imageUrl) {
         this.id = id;
+        this.vacationName = vacationName;
+        this.location = location;
+        this.price = price;
+        this.imageUrl = imageUrl;
+
+    }
+
+    @Ignore
+    public Vacation(String vacationName, String location, int price , int imageUrl) {
         this.vacationName = vacationName;
         this.location = location;
         this.price = price;
