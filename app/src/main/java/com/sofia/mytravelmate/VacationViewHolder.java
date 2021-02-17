@@ -1,5 +1,7 @@
 package com.sofia.mytravelmate;
 
+import android.content.Intent;
+import android.icu.number.IntegerWidth;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,10 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sofia.mytravelmate.ui.home.HomeFragment;
+
+import java.util.ArrayList;
+
 public class VacationViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewVacationName, textViewLocation, textViewPrice;
     private final LinearLayout linearLayout;
     private ImageView imageView;
+    private Vacation vacation;
 
     public VacationViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,6 +28,25 @@ public class VacationViewHolder extends RecyclerView.ViewHolder {
         textViewPrice = itemView.findViewById(R.id.textViewPrice);
         linearLayout = itemView.findViewById(R.id.linearLayoutVacation);
         imageView = itemView.findViewById(R.id.imageView);
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+//                VacationDatabase appDB = VacationDatabase.getInstance(itemView.getContext());
+//                appDB.vacationDao().deleteVacation(vacation);
+                Intent intent = new Intent(itemView.getContext(), EditAddActivity.class);
+                intent.putExtra("vacation123", vacation);
+                itemView.getContext().startActivity(intent);
+                return false;
+            }
+        });
+    }
+
+    public Vacation getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(Vacation vacation) {
+        this.vacation = vacation;
     }
 
     public TextView getTextViewVacationName() {

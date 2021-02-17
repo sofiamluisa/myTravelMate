@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sofia.mytravelmate.AlertDialogsHelper;
 import com.sofia.mytravelmate.R;
 import com.sofia.mytravelmate.Vacation;
 import com.sofia.mytravelmate.VacationAdapter;
@@ -19,14 +18,13 @@ import com.sofia.mytravelmate.VacationDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    public List<Vacation> vacationList = new ArrayList<>();
+    public List<Vacation> vacationList;
     private Context context;
     private VacationAdapter vacationAdapter;
+    private VacationDatabase appDB;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,15 +42,11 @@ public class HomeFragment extends Fragment {
 //        vacationList.add(new Vacation(5, "Seeing the Pyramids in Cairo", "Egypt", 152, R.drawable.a2));
 //        vacationList.add(new Vacation(6, "American Dream", "USA", 1500, R.drawable.newyork));
 //        vacationList.add(new Vacation(7, "Skying in the Alps", "Austria", 600, R.drawable.mountains));
-        VacationDatabase appDB = VacationDatabase.getInstance(getContext());
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> vacationList =  appDB.vacationDao().getVacationList());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        vacationList =  appDB.vacationDao().getVacationList();
+        appDB = VacationDatabase.getInstance(getContext());
+        vacationList = new ArrayList<>();
+        vacationList =  appDB.vacationDao().getVacationList();
+
+
 
         vacationAdapter = new VacationAdapter(vacationList, getContext());
         recyclerView = root.findViewById(R.id.recyclerViewVacations);
@@ -62,6 +56,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(vacationAdapter);
 
 
+
         return root;
 
     }
@@ -69,7 +64,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+
+        vacationList =  appDB.vacationDao().getVacationList();
+        vacationAdapter = new VacationAdapter(vacationList, context);
+        recyclerView.setAdapter(vacationAdapter);
         vacationAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 }

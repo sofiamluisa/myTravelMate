@@ -13,7 +13,7 @@ public abstract class VacationDatabase extends RoomDatabase {
 
     public static synchronized VacationDatabase getInstance(Context context){
         if(instance == null){
-            instance = Room.databaseBuilder(context.getApplicationContext(),VacationDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();
+            instance = Room.databaseBuilder(context.getApplicationContext(),VacationDatabase.class, DB_NAME).allowMainThreadQueries().fallbackToDestructiveMigration().build();
         }
         return instance;
     }

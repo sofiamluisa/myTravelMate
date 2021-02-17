@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -40,7 +41,7 @@ public class EditAddActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button cancel;
     private Button save;
-    final Vacation vacation = new Vacation();
+    private Vacation vacation;
     final HashMap<String, EditText> editTextHashs = new HashMap<>();
 
     @Override
@@ -66,21 +67,47 @@ public class EditAddActivity extends AppCompatActivity {
         minute = c.get(Calendar.MINUTE);
 
 
-        save.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(!TextUtils.isEmpty(editTextVacationName.getText())&& !TextUtils.isEmpty(editTextLocation.getText())){
-                    final TypedArray imgs = getResources().obtainTypedArray(R.array.arrayImages);
-                    final Random rand = new Random();
-                    final int rndInt = rand.nextInt(imgs.length());
-                    final int resID = imgs.getResourceId(rndInt, 0);
-                    VacationDatabase appDB = VacationDatabase.getInstance(getApplicationContext());
-                    Executor executor = Executors.newSingleThreadExecutor();
-                    executor.execute(() -> appDB.vacationDao().insertVacation(new Vacation(editTextVacationName.getText().toString(), editTextLocation.getText().toString(), Integer.parseInt(textViewSeekBar.getText().toString()), resID)));
+        Optional.ofNullable(getIntent().getSerializableExtra("vacation123")).ifPresent((vac) -> vacation = (Vacation) vac);
 
-                } finish();
-            }
-        });
+
+        if (vacation != null) {
+            editTextVacationName.setText(vacation.getVacationName());
+            editTextLocation.setText(vacation.getLocation());
+            textViewSeekBar.setText(String.valueOf(vacation.getPrice()));
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(editTextVacationName.getText()) && !TextUtils.isEmpty(editTextLocation.getText())) {
+
+                        VacationDatabase appDB = VacationDatabase.getInstance(getApplicationContext());
+                        vacation.setVacationName(editTextVacationName.getText().toString());
+                        vacation.setLocation(editTextLocation.getText().toString());
+                        vacation.setPrice(Integer.parseInt(textViewSeekBar.getText().toString()));
+                        appDB.vacationDao().updateVacation(vacation);
+
+                    }
+                    finish();
+                }
+            });
+        } else {
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(editTextVacationName.getText()) && !TextUtils.isEmpty(editTextLocation.getText())) {
+                        final TypedArray imgs = getResources().obtainTypedArray(R.array.arrayImages);
+                        final Random rand = new Random();
+                        final int rndInt = rand.nextInt(imgs.length());
+                        final int resID = imgs.getResourceId(rndInt, 0);
+                        VacationDatabase appDB = VacationDatabase.getInstance(getApplicationContext());
+                        appDB.vacationDao().insertVacation(new Vacation(editTextVacationName.getText().toString(), editTextLocation.getText().toString(), Integer.parseInt(textViewSeekBar.getText().toString()), resID));
+
+                    }
+                    finish();
+                }
+            });
+
+        }
+
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

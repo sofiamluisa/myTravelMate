@@ -27,6 +27,7 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationViewHolder> {
         View itemView = LayoutInflater.from(context).inflate(R.layout.vacation_item, parent, false);
         return new VacationViewHolder(itemView);
 
+
     }
 
     @Override
@@ -36,6 +37,7 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationViewHolder> {
         holder.getTextViewLocation().setText(currentVacation.getLocation());
         holder.getTextViewPrice().setText(String.valueOf(currentVacation.getPrice()));
         holder.getImageView().setImageResource(currentVacation.getImageUrl());
+        holder.setVacation(vacationList.get(position));
 
         if (position % 2 == 1) {
             holder.getLinearLayout().setBackgroundColor(Color.LTGRAY);
