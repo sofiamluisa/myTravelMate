@@ -1,11 +1,10 @@
-package com.sofia.mytravelmate;
+package com.sofia.mytravelmate.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.res.TypedArray;
 import android.icu.util.Calendar;
-import android.media.Rating;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,16 +17,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sofia.mytravelmate.ui.home.HomeFragment;
+import com.sofia.mytravelmate.R;
+import com.sofia.mytravelmate.Vacation;
+import com.sofia.mytravelmate.room.VacationDatabase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class EditAddActivity extends AppCompatActivity {
     private int year;
@@ -64,7 +60,7 @@ public class EditAddActivity extends AppCompatActivity {
         textViewDateTo = findViewById(R.id.textViewDateTo);
         textViewDateFrom = findViewById(R.id.textViewDateFrom);
         ratingBar = findViewById(R.id.ratingBar);
-        shareButton= findViewById(R.id.button_share);
+        shareButton = findViewById(R.id.button_share);
 
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -74,7 +70,7 @@ public class EditAddActivity extends AppCompatActivity {
         minute = c.get(Calendar.MINUTE);
 
 
-        Optional.ofNullable(getIntent().getSerializableExtra("vacation123")).ifPresent((vac) -> vacation = (Vacation) vac);
+        Optional.ofNullable(getIntent().getSerializableExtra("vacation")).ifPresent((vac) -> vacation = (Vacation) vac);
 
 
         if (vacation != null) {
@@ -154,13 +150,13 @@ public class EditAddActivity extends AppCompatActivity {
                     case 2:
                         message = "We always accept suggestions!";
                         break;
-                    case 3 :
+                    case 3:
                         message = "Good enough!";
                         break;
-                    case 4 :
+                    case 4:
                         message = "Great! Thank you!";
                         break;
-                    case 5 :
+                    case 5:
                         message = "Awesome! We are glad to hear that!";
                         break;
                 }

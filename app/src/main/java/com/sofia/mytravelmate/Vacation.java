@@ -16,9 +16,10 @@ public class Vacation implements Serializable {
     private int price;
     private int imageUrl;
 
-    public Vacation() {}
+    public Vacation() {
+    }
 
-    public Vacation(int id, String vacationName, String location, int price , int imageUrl) {
+    public Vacation(int id, String vacationName, String location, int price, int imageUrl) {
         this.id = id;
         this.vacationName = vacationName;
         this.location = location;
@@ -28,7 +29,7 @@ public class Vacation implements Serializable {
     }
 
     @Ignore
-    public Vacation(String vacationName, String location, int price , int imageUrl) {
+    public Vacation(String vacationName, String location, int price, int imageUrl) {
         this.vacationName = vacationName;
         this.location = location;
         this.price = price;
@@ -80,8 +81,8 @@ public class Vacation implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "Vacation{"+
-                "id='" + id +'\''+", vacationName='" + vacationName+'\''+
-                ", location='" + location +'\'' + ", price='" + price +'\''+'}';
+        return "Vacation{" +
+                "id='" + id + '\'' + ", vacationName='" + vacationName + '\'' +
+                ", location='" + location + '\'' + ", price='" + price + '\'' + '}';
     }
 }

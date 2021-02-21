@@ -1,10 +1,12 @@
-package com.sofia.mytravelmate.ui.home;
+package com.sofia.mytravelmate.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,10 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sofia.mytravelmate.R;
 import com.sofia.mytravelmate.Vacation;
 import com.sofia.mytravelmate.VacationAdapter;
-import com.sofia.mytravelmate.VacationDatabase;
+import com.sofia.mytravelmate.activity.MainActivity;
+import com.sofia.mytravelmate.retrofit.GetWeatherService;
+import com.sofia.mytravelmate.retrofit.RetrofitClient;
+import com.sofia.mytravelmate.retrofit.datamodel.OpenWeatherDto;
+import com.sofia.mytravelmate.room.VacationDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -25,6 +35,7 @@ public class HomeFragment extends Fragment {
     private Context context;
     private VacationAdapter vacationAdapter;
     private VacationDatabase appDB;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,18 +45,9 @@ public class HomeFragment extends Fragment {
 
         context = root.getContext();
 
-//        vacationList.add(new Vacation(1, "Rome with friends", "Rome-Italy", 250, R.drawable.colosseum));
-//        vacationList.add(new Vacation(2, "Paris with friends", "Paris-France", 250, R.drawable.paris));
-//        vacationList.add(new Vacation(3, "Visiting Taj-Mahal", "India", 150, R.drawable.tajmahal));
-//        vacationList.add(new Vacation(4, "Beautiful Berlin", "Germany", 250, R.drawable.germany));
-//        vacationList.add(new Vacation(4, "Party in Santorini", "Greece", 300, R.drawable.greece));
-//        vacationList.add(new Vacation(5, "Seeing the Pyramids in Cairo", "Egypt", 152, R.drawable.a2));
-//        vacationList.add(new Vacation(6, "American Dream", "USA", 1500, R.drawable.newyork));
-//        vacationList.add(new Vacation(7, "Skying in the Alps", "Austria", 600, R.drawable.mountains));
         appDB = VacationDatabase.getInstance(getContext());
         vacationList = new ArrayList<>();
-        vacationList =  appDB.vacationDao().getVacationList();
-
+        vacationList = appDB.vacationDao().getVacationList();
 
 
         vacationAdapter = new VacationAdapter(vacationList, getContext());
@@ -57,6 +59,9 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
+
         return root;
 
     }
@@ -65,7 +70,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
 
-        vacationList =  appDB.vacationDao().getVacationList();
+        vacationList = appDB.vacationDao().getVacationList();
         vacationAdapter = new VacationAdapter(vacationList, context);
         recyclerView.setAdapter(vacationAdapter);
         vacationAdapter.notifyDataSetChanged();

@@ -1,4 +1,4 @@
-package com.sofia.mytravelmate;
+package com.sofia.mytravelmate.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.sofia.mytravelmate.ui.gallery.GalleryViewModel;
+import com.sofia.mytravelmate.R;
+import com.sofia.mytravelmate.viewmodel.ShareViewModel;
 
-public class AboutUsFragment extends Fragment {
-    private TextView textViewAboutUs;
+public class ShareFragment extends Fragment {
 
-    private AboutUsViewModel aboutUsViewModel;
+    private ShareViewModel shareViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        aboutUsViewModel =
-                new ViewModelProvider(this).get(AboutUsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_about_us, container, false);
-        final TextView textView = root.findViewById(R.id.textViewAboutUs);
-        aboutUsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        shareViewModel =
+                new ViewModelProvider(this).get(ShareViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_share, container, false);
+        final TextView textView = root.findViewById(R.id.textViewShare);
+        shareViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

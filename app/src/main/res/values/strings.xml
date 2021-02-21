@@ -21,5 +21,24 @@
     <string name="menu_about_un">About us</string>
     <string name="contact_text">Thank you for trying our app, if you have questions or suggestions or you need help, don\'t hesitate to contact us here:</string>
     <string name="email_text">email : sofialuisa25@gmail.com</string>
+    <string name="location_text">Location</string>
+    <string name="vacation_name_text">Vacation Name</string>
+    <string name="price_text">Price</string>
+    <string name="from_text">From</string>
+    <string name="select_date_text">Select Date</string>
+    <string name="city_break_text">City Break</string>
+    <string name="sea_side_text">Sea Side</string>
+    <string name="mountain_text">Mountain</string>
+    <string name="cancel_button">cancel</string>
+    <string name="save_button">save</string>
+    <string name="forecast_text">The forecast in the city you want to visit is shown below</string>
+    <string name="vacation_name">Vacation Name :</string>
+    <string name="location">Location :</string>
+    <string name="price">Price :</string>
+    <string name="kelvin_temp">Temperature in Kelvin degrees :</string>
+    <string name="pressure_in_bars">Pressure in Bars :</string>
+    <string name="weather_description">Weather description :</string>
+    <string name="user_name">Luisa Sofia</string>
+    <string name="email_user">sofialuisa25@gmail.com</string>
 
 </resources>

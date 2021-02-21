@@ -1,0 +1,21 @@
+package com.sofia.mytravelmate.retrofit.datamodel;
+
+
+import com.google.gson.annotations.SerializedName;
+
+public class CoordDto {
+
+    @SerializedName("lon")
+    private double lon ;
+
+    @SerializedName("lat")
+    private double lat;
+
+    public double getLon() {
+        return lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+}

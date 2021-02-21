@@ -1,7 +1,6 @@
 package com.sofia.mytravelmate;
 
 import android.content.Intent;
-import android.icu.number.IntegerWidth;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sofia.mytravelmate.ui.home.HomeFragment;
-
-import java.util.ArrayList;
+import com.sofia.mytravelmate.activity.EditAddActivity;
+import com.sofia.mytravelmate.activity.ReadOnlyActivity;
+import com.sofia.mytravelmate.room.VacationDatabase;
 
 public class VacationViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewVacationName, textViewLocation, textViewPrice;
@@ -23,7 +22,7 @@ public class VacationViewHolder extends RecyclerView.ViewHolder {
     public VacationViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        textViewVacationName=itemView.findViewById(R.id.textViewVacationName);
+        textViewVacationName = itemView.findViewById(R.id.textViewVacationName);
         textViewLocation = itemView.findViewById(R.id.textViewLocation);
         textViewPrice = itemView.findViewById(R.id.textViewPrice);
         linearLayout = itemView.findViewById(R.id.linearLayoutVacation);
@@ -34,9 +33,18 @@ public class VacationViewHolder extends RecyclerView.ViewHolder {
 //                VacationDatabase appDB = VacationDatabase.getInstance(itemView.getContext());
 //                appDB.vacationDao().deleteVacation(vacation);
                 Intent intent = new Intent(itemView.getContext(), EditAddActivity.class);
-                intent.putExtra("vacation123", vacation);
+                intent.putExtra("vacation", vacation);
                 itemView.getContext().startActivity(intent);
                 return false;
+            }
+        });
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(itemView.getContext(), ReadOnlyActivity.class);
+                intent.putExtra("vacation", vacation);
+                itemView.getContext().startActivity(intent);
             }
         });
     }

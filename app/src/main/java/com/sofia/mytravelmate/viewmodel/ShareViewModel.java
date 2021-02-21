@@ -1,13 +1,14 @@
-package com.sofia.mytravelmate;
+package com.sofia.mytravelmate.viewmodel;
+
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ContactViewModel extends ViewModel {
+public class ShareViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public ContactViewModel() {
+    public ShareViewModel() {
         mText = new MutableLiveData<>();
     }
 
