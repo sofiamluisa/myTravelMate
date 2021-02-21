@@ -16,5 +16,17 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_baseline_assignment_ind_24"
+            android:title="@string/menu_about_un" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/menu_share" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_baseline_contact_mail_24"
+            android:title="@string/menu_contact" />
     </group>
 </menu>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.res.TypedArray;
 import android.icu.util.Calendar;
+import android.media.Rating;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sofia.mytravelmate.ui.home.HomeFragment;
 
@@ -43,6 +46,8 @@ public class EditAddActivity extends AppCompatActivity {
     private Button save;
     private Vacation vacation;
     final HashMap<String, EditText> editTextHashs = new HashMap<>();
+    private RatingBar ratingBar;
+    private Button shareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,8 @@ public class EditAddActivity extends AppCompatActivity {
         save = findViewById(R.id.save);
         textViewDateTo = findViewById(R.id.textViewDateTo);
         textViewDateFrom = findViewById(R.id.textViewDateFrom);
+        ratingBar = findViewById(R.id.ratingBar);
+        shareButton= findViewById(R.id.button_share);
 
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -134,6 +141,33 @@ public class EditAddActivity extends AppCompatActivity {
             }
         });
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                int ratingStar = (int) rating;
+                String message = null;
+
+                switch (ratingStar) {
+                    case 1:
+                        message = "Sorry to hear that! :(";
+                        break;
+                    case 2:
+                        message = "We always accept suggestions!";
+                        break;
+                    case 3 :
+                        message = "Good enough!";
+                        break;
+                    case 4 :
+                        message = "Great! Thank you!";
+                        break;
+                    case 5 :
+                        message = "Awesome! We are glad to hear that!";
+                        break;
+                }
+                Toast.makeText(EditAddActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 
@@ -167,4 +201,6 @@ public class EditAddActivity extends AppCompatActivity {
                 }, year, month, day);
         datePickerDialog.show();
     }
+
+
 }

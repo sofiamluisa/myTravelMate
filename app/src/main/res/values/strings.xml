@@ -11,4 +11,15 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="field_error">Field can\'t be empty !</string>
+    <string name="about_us">Hello, my name is Luisa, I am a young developer willing to start a career in the IT domain. This is my first app in Android and I hope you find it useful. The main purpose of the app is to help travelers to find affordable vacations that they will enjoy</string>
+    <string name="gallery">Gallery</string>
+    <string name="menu_about_us">About us</string>
+    <string name="share_button">Share</string>
+    <string name="share_text">If you like this app you can share it with your friends</string>
+    <string name="menu_contact">Contact</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_about_un">About us</string>
+    <string name="contact_text">Thank you for trying our app, if you have questions or suggestions or you need help, don\'t hesitate to contact us here:</string>
+    <string name="email_text">email : sofialuisa25@gmail.com</string>
+
 </resources>
